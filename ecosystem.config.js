@@ -31,7 +31,7 @@ module.exports = {
       host : '47.98.195.42',
       ref  : 'origin/master',
       repo : 'https://github.com/hanfengmi/web-server.git',
-      path : '/var/www/html/web-server/',
+      path : '/var/www/html/',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env prod'
     },
     dev : {
