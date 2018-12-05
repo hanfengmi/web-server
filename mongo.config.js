@@ -7,7 +7,8 @@ export default (app) => {
     {
       user: "hanhou",
       pass: "hanhou1214",
-      // useMongoClient: true,
+      // 大哥手下留情
+      
       reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
       reconnectInterval: 1000, // Reconnect every 500ms
       poolSize: 10, // Maintain up to 10 socket connections
