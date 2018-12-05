@@ -12,9 +12,12 @@ module.exports = {
       env: {
         COMMON_VARIABLE: 'true'
       },
-      env_production : {
-        NODE_ENV: 'production'
-      }
+      env_prod: {
+        NODE_ENV: 'prod'
+      },
+      env_dev: {
+          NODE_ENV: 'dev'
+      },
     },
   ],
 
@@ -28,7 +31,7 @@ module.exports = {
       host : '47.98.195.42',
       ref  : 'origin/master',
       repo : 'https://github.com/hanfengmi/web-server.git',
-      path : '/var/www/html/',
+      path : '/var/www/html/web-server/',
       'post-deploy' : 'npm install && pm2 reload ecosystem.config.js --env prod'
     },
     dev : {
