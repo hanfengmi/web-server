@@ -5,7 +5,11 @@
   "main": "server.js",
   "scripts": {
     "start": "babel-node server.js",
-    "build": "webpack --config webpack.common.js"
+    "build": "webpack --config webpack.common.js",
+    "dev": "npm-run-all --parallel devement:*",
+    "devement:server": "NODE_ENV=dev nodemon --watch build --exec \"node build/bundle.js\"",
+    "devement:build-server": "webpack --config webpack.common.js --watch",
+    "backup": "nodemon --watch ../server --exec babel-node server.js"
   },
   "keywords": [
     "server"
