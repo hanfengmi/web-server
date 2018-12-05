@@ -8,7 +8,7 @@ module.exports = {
     // First application
     {
       name      : 'server',
-      script    : 'build/haha.js',
+      script    : 'build/bundle.js',
       env: {
         COMMON_VARIABLE: 'true'
       },
