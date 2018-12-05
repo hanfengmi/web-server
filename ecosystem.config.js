@@ -7,8 +7,8 @@ module.exports = {
 
     // First application
     {
-      name      : 'han-web-SERVER',
-      script    : 'build/bundle.js',
+      name      : 'server',
+      script    : 'build/haha.js',
       env: {
         COMMON_VARIABLE: 'true'
       },
