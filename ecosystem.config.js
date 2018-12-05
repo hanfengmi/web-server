@@ -8,7 +8,7 @@ module.exports = {
     // First application
     {
       name      : 'han-web-SERVER',
-      script    : './build/bundle.js',
+      script    : 'server.js',
       env: {
         COMMON_VARIABLE: 'true'
       },
@@ -32,7 +32,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'https://github.com/hanfengmi/web-server.git',
       path : '/var/www/html/webServer',
-      'post-deploy' : 'npm install && npm run build && pm2 reload ecosystem.config.js --env prod'
+      'post-deploy' : 'npm install && npm run start && pm2 reload ecosystem.config.js --env prod'
     },
     dev : {
       user : 'root',
@@ -40,7 +40,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'https://github.com/hanfengmi/web-server.git',
       path : '/var/www/html/webServer',
-      'post-deploy' : 'npm install && npm run build && pm2 reload ecosystem.config.js --env dev',
+      'post-deploy' : 'npm install && npm run start && pm2 reload ecosystem.config.js --env dev',
       env  : {
         NODE_ENV: 'dev'
       }
