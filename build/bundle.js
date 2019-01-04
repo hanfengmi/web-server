@@ -106,7 +106,7 @@ var _router = __webpack_require__(7);
 
 var _router2 = _interopRequireDefault(_router);
 
-var _mongo = __webpack_require__(12);
+var _mongo = __webpack_require__(13);
 
 var _mongo2 = _interopRequireDefault(_mongo);
 
@@ -118,7 +118,7 @@ var port = 8888;
 // 普通server
 var server = _http2.default.createServer(app);
 // 增强server和sslServer支持webSocket
-__webpack_require__(13)(app, server);
+__webpack_require__(14)(app, server);
 
 // common middleware
 app.use(_bodyParser2.default.json());
@@ -180,11 +180,17 @@ var _test = __webpack_require__(8);
 
 var _test2 = _interopRequireDefault(_test);
 
+var _currentUser = __webpack_require__(12);
+
+var _currentUser2 = _interopRequireDefault(_currentUser);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// routes
 exports.default = function (app) {
     app.use('/api/test', _test2.default);
-}; // routes
+    app.use('/api/currentUser', _currentUser2.default);
+};
 
 /***/ }),
 /* 8 */
@@ -328,6 +334,64 @@ module.exports = require("bcrypt");
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = _express2.default.Router();
+// import { find } from './find';
+
+
+// middleware that is specific to this router
+router.use(function timeLog(req, res, next) {
+    console.log('route /api/currentUser reques Time: ', Date.now());
+    next();
+});
+
+// route: /api/test 查询user表全部数据 
+router.get('/', function (req, res) {
+    res.status(200).json({
+        address: "西湖区工专路 77 号",
+        avatar: "https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png",
+        country: "China",
+        email: "antdesign@alipay.com",
+        geographic: {
+            province: {
+                label: "浙江省",
+                key: "330000"
+            },
+            city: {
+                label: "杭州市",
+                key: "330100"
+            }
+        },
+        group: "蚂蚁金服－某某某事业群－某某平台部－某某技术部－UED",
+        name: "韩兆科",
+        notifyCount: 12,
+        phone: "15717671152",
+        signature: "海纳百川，有容乃大",
+        tags: [{ key: "0", label: "很有想法的" }, { key: "1", label: "专注设计" }, { key: "2", label: "辣~" }],
+        title: "交互专家",
+        unreadCount: 11,
+        userid: "00000001"
+    });
+});
+
+exports.default = router;
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
@@ -361,7 +425,7 @@ exports.default = function (app) {
 };
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-ws");
