@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,129 +71,6 @@ module.exports = require("express");
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports) {
-
-module.exports = require("mongoose");
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _fs = __webpack_require__(3);
-
-var _fs2 = _interopRequireDefault(_fs);
-
-var _express = __webpack_require__(0);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _http = __webpack_require__(4);
-
-var _http2 = _interopRequireDefault(_http);
-
-var _cookieParser = __webpack_require__(5);
-
-var _cookieParser2 = _interopRequireDefault(_cookieParser);
-
-var _bodyParser = __webpack_require__(6);
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
-
-var _router = __webpack_require__(7);
-
-var _router2 = _interopRequireDefault(_router);
-
-var _mongo = __webpack_require__(13);
-
-var _mongo2 = _interopRequireDefault(_mongo);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// express instance
-var app = (0, _express2.default)();
-var port = 8888;
-// 普通server
-var server = _http2.default.createServer(app);
-// 增强server和sslServer支持webSocket
-__webpack_require__(14)(app, server);
-
-// common middleware
-app.use(_bodyParser2.default.json());
-app.use(_bodyParser2.default.urlencoded({ extended: false }));
-app.use((0, _cookieParser2.default)());
-
-// mongodb setup
-(0, _mongo2.default)(app);
-// routes middleware（普通http路由请求）
-(0, _router2.default)(app);
-// // 路由未匹配到
-// app.use(routeNotMatch);
-// // 错误收集
-// app.use(errorHandler);
-
-// http  请求监听端口
-server.listen(port, function () {
-  return console.log("bigMonkey server listening on port " + port);
-});
-
-// console.log("process.env.NODE_ENV is: ", process.env.NODE_ENV);
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-module.exports = require("fs");
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports) {
-
-module.exports = require("http");
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-module.exports = require("cookie-parser");
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = require("body-parser");
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _test = __webpack_require__(8);
-
-var _test2 = _interopRequireDefault(_test);
-
-var _currentUser = __webpack_require__(12);
-
-var _currentUser2 = _interopRequireDefault(_currentUser);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// routes
-exports.default = function (app) {
-    app.use('/api/test', _test2.default);
-    app.use('/api/currentUser', _currentUser2.default);
-};
-
-/***/ }),
-/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -203,72 +80,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _express = __webpack_require__(0);
-
-var _express2 = _interopRequireDefault(_express);
-
-var _find = __webpack_require__(9);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var router = _express2.default.Router();
-
-
-// middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
-  console.log('route /api/user reques Time: ', Date.now());
-  next();
-});
-
-// route: /api/test 查询user表全部数据 
-router.get('/', _find.find);
-
-exports.default = router;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.find = undefined;
-
-var _user = __webpack_require__(10);
-
-var _user2 = _interopRequireDefault(_user);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var find = exports.find = function find(req, res) {
-    _user2.default.find(function (err, users) {
-        if (err) {
-            // errCode 3 服务器错误
-            res.status(500).json({ errCode: 3, result: err });
-        } else {
-            res.status(200).json({
-                errCode: 0,
-                result: { users: users }
-            });
-        }
-    });
-};
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _mongoose = __webpack_require__(1);
+var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -319,6 +131,198 @@ var userSchema = new Schema({
 });
 
 exports.default = _mongoose2.default.model("User", userSchema);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+module.exports = require("mongoose");
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _fs = __webpack_require__(4);
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _http = __webpack_require__(5);
+
+var _http2 = _interopRequireDefault(_http);
+
+var _cookieParser = __webpack_require__(6);
+
+var _cookieParser2 = _interopRequireDefault(_cookieParser);
+
+var _bodyParser = __webpack_require__(7);
+
+var _bodyParser2 = _interopRequireDefault(_bodyParser);
+
+var _router = __webpack_require__(8);
+
+var _router2 = _interopRequireDefault(_router);
+
+var _mongo = __webpack_require__(15);
+
+var _mongo2 = _interopRequireDefault(_mongo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// express instance
+var app = (0, _express2.default)();
+var port = 8888;
+// 普通server
+var server = _http2.default.createServer(app);
+// 增强server和sslServer支持webSocket
+__webpack_require__(16)(app, server);
+
+// common middleware
+app.use(_bodyParser2.default.json());
+app.use(_bodyParser2.default.urlencoded({ extended: false }));
+app.use((0, _cookieParser2.default)());
+
+// mongodb setup
+(0, _mongo2.default)(app);
+// routes middleware（普通http路由请求）
+(0, _router2.default)(app);
+// // 路由未匹配到
+// app.use(routeNotMatch);
+// // 错误收集
+// app.use(errorHandler);
+
+// http  请求监听端口
+server.listen(port, function () {
+  return console.log("bigMonkey server listening on port " + port);
+});
+
+// console.log("process.env.NODE_ENV is: ", process.env.NODE_ENV);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = require("fs");
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = require("http");
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("cookie-parser");
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports) {
+
+module.exports = require("body-parser");
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _test = __webpack_require__(9);
+
+var _test2 = _interopRequireDefault(_test);
+
+var _currentUser = __webpack_require__(12);
+
+var _currentUser2 = _interopRequireDefault(_currentUser);
+
+var _logList = __webpack_require__(13);
+
+var _logList2 = _interopRequireDefault(_logList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (app) {
+    app.use('/api/test', _test2.default);
+    app.use('/api/currentUser', _currentUser2.default);
+    app.use('/api/login', _logList2.default);
+}; // routes
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _find = __webpack_require__(10);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = _express2.default.Router();
+
+
+// middleware that is specific to this router
+router.use(function timeLog(req, res, next) {
+  console.log('route /api/user reques Time: ', Date.now());
+  next();
+});
+
+// route: /api/test 查询user表全部数据 
+router.get('/', _find.find);
+
+exports.default = router;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.find = undefined;
+
+var _user = __webpack_require__(1);
+
+var _user2 = _interopRequireDefault(_user);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var find = exports.find = function find(req, res) {
+    _user2.default.find(function (err, users) {
+        if (err) {
+            // errCode 3 服务器错误
+            res.status(500).json({ errCode: 3, result: err });
+        } else {
+            res.status(200).json({
+                errCode: 0,
+                result: { users: users }
+            });
+        }
+    });
+};
 
 /***/ }),
 /* 11 */
@@ -395,7 +399,84 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _mongoose = __webpack_require__(1);
+var _express = __webpack_require__(0);
+
+var _express2 = _interopRequireDefault(_express);
+
+var _account = __webpack_require__(14);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var router = _express2.default.Router();
+
+
+// middleware that is specific to this router
+router.use(function timeLog(req, res, next) {
+  console.log('route /api/login reques Time: ', Date.now());
+  next();
+});
+
+// route: /api/login 登录 
+router.post('/account', _account.account);
+
+exports.default = router;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.account = undefined;
+
+var _user = __webpack_require__(1);
+
+var _user2 = _interopRequireDefault(_user);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var account = exports.account = function account(req, res) {
+    var _req$body = req.body,
+        userName = _req$body.userName,
+        password = _req$body.password;
+
+    _user2.default.findOne({ 'name': userName }, function (err, users) {
+        if (err) {
+            // 查询失败
+            console.log('mmmmmmmmmmmmmmmmmm走到这里');
+            res.status(200).json({ currentAuthority: "guest", status: "error", type: "account" });
+        } else {
+            console.log('yyyyyyyyyyyyyyyyyyy come on');
+            if (users) {
+                console.log(users, 123123123123);
+                res.status(200).json({ currentAuthority: "guest", status: "error", type: "account", msg: '用户dui' });
+                // res.status(200).json({ currentAuthority: "guest", status: "error", type: "account" });
+            } else {
+                res.status(200).json({ currentAuthority: "guest", status: "error", type: "account", msg: '用户未注册' });
+            }
+        }
+    });
+
+    // res.status(200).json({ currentAuthority: "guest", status: "error", type: "account" });
+    // res.status(200).json({ currentAuthority: "admin",status: "ok",type: "account" });
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mongoose = __webpack_require__(2);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -425,7 +506,7 @@ exports.default = function (app) {
 };
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = require("express-ws");
